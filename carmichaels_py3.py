@@ -1,18 +1,15 @@
 ##################################################
-## module: carmichaels_py2.py
+## module: carmichaels_py3.py
 ## author: Misty Jenkins
 ## A#: A01489174
 ## finds Charmichael Numbers
 ## 09/15/2016
 ##################################################
 
-# !/usr/bin/python
-
-from sets import Set
-from fermat_primes_py2 import is_fermat_prime
+from fermat_primes_py3 import is_fermat_prime
 from math import sqrt
 
-knownPrimes = Set()
+knownPrimes = set()
 
 # returns true if n is a perfect square
 def is_perfect_square(n):
@@ -34,7 +31,7 @@ def is_prime(n):
     if(n in knownPrimes):
         return True
     else:
-        for i in range(2, n/2):
+        for i in range(2, n//2):
             if not (n%i):
                 return False
 
@@ -48,9 +45,9 @@ def is_carmichael(n):
     if(is_prime(n)):
         return False
 
-    divisors = Set([1, n])
+    divisors = set([1, n])
     # get divisors
-    for i in xrange(2, n/2+1):
+    for i in range(2, n//2+1):
         if(n%i == 0):
             divisors.add(i)
 
@@ -65,42 +62,42 @@ def is_carmichael(n):
 
 # returns a set object of Carmichaels in [x, y], where x and y are non-negative integers and x <= y
 def find_carmichaels_in_range(x, y):
-    carmichaels = Set()
-    for i in xrange(x, y):
+    carmichaels = set()
+    for i in range(x, y):
         if (is_carmichael(i)):
             carmichaels.add(i)
     return carmichaels
 
 # returns a set of the first n Carmichael numbers beginning its search from 0
-#As the numbers are added to that set they are printed out
+# as the numbers are added to that set they are printed out
 def find_first_n_carmichaels(n):
     i = 0
-    carmichaels = Set()
+    carmichaels = set()
     while len(carmichaels) < n:
         if(is_carmichael(i)):
             carmichaels.add(i)
-            print str(len(carmichaels)) + ") " + str(i)
+            print(str(len(carmichaels)) + ") " + str(i))
         i += 1
     return carmichaels
 
 
 # test code
-numCarmichaels = 3
-print "First " + str(numCarmichaels) + " Carmichael Numbers:"
+numCarmichaels = 5
+print("First " + str(numCarmichaels) + " Carmichael Numbers:")
 carmichaelSet = find_first_n_carmichaels(numCarmichaels)
 carmichaelSet = sorted(carmichaelSet)
 
-print str(carmichaelSet)
-print "\n---Fermat Prime Tests---"
-print '%10s' % "Carmichael" + \
+print(str(carmichaelSet))
+print("\n---Fermat Prime Tests---")
+print('%10s' % "Carmichael" + \
       '%6s' % " Fermat" +\
-      '%6s' % " Truth"
+      '%6s' % " Truth")
 for c in carmichaelSet:
-    print '%10s' % str(c) + "|" + \
+    print('%10s' % str(c) + "|" + \
           '%6s' % str(is_fermat_prime(c, 10)) + "|" + \
-          '%6s' % str(is_prime(c))
+          '%6s' % str(is_prime(c)))
 
 start = 100
-end = 10000
-print "\nCarmichael numbers between " + str(start) + " and " + str(end) + ":"
-print str(find_carmichaels_in_range(start, end))
+end = 5000
+print("\nCarmichael numbers between " + str(start) + " and " + str(end) + ":" )
+print(str(find_carmichaels_in_range(start, end)))
