@@ -45,12 +45,14 @@ def is_prime(n):
 def is_carmichael(n):
     if(n==1):
         return False
+    if(n%2==0):
+        return False
     if(is_prime(n)):
         return False
 
     divisors = Set([1, n])
     # get divisors
-    for i in xrange(2, n/2+1):
+    for i in xrange(3, n/2+1, 2):
         if(n%i == 0):
             divisors.add(i)
 
@@ -65,11 +67,7 @@ def is_carmichael(n):
 
 # returns a set object of Carmichaels in [x, y], where x and y are non-negative integers and x <= y
 def find_carmichaels_in_range(x, y):
-    carmichaels = Set()
-    for i in xrange(x, y):
-        if (is_carmichael(i)):
-            carmichaels.add(i)
-    return carmichaels
+    return Set([i for i in xrange(x, y) if is_carmichael(i)])
 
 # returns a set of the first n Carmichael numbers beginning its search from 0
 #As the numbers are added to that set they are printed out
