@@ -72,13 +72,13 @@ def find_carmichaels_in_range(x, y):
 # returns a set of the first n Carmichael numbers beginning its search from 0
 #As the numbers are added to that set they are printed out
 def find_first_n_carmichaels(n):
-    i = 0
+    i = 1
     carmichaels = Set()
     while len(carmichaels) < n:
         if(is_carmichael(i)):
             carmichaels.add(i)
             print str(len(carmichaels)) + ") " + str(i)
-        i += 1
+        i += 2
     return carmichaels
 
 
