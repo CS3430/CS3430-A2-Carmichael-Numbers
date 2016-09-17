@@ -24,6 +24,8 @@ def divides(p, n):
 
 # returns true if n is prime
 def is_prime(n):
+    if(n%2==0):
+        return False
     if(n<2):
         return False
 
@@ -31,7 +33,7 @@ def is_prime(n):
     if(n in knownPrimes):
         return True
     else:
-        for i in range(2, n//2):
+        for i in range(3, n//2, 2):
             if not (n%i):
                 return False
 
@@ -47,7 +49,7 @@ def is_carmichael(n):
 
     divisors = set([1, n])
     # get divisors
-    for i in range(2, n//2+1):
+    for i in range(3, n//2+1, 2):
         if(n%i == 0):
             divisors.add(i)
 
@@ -62,11 +64,7 @@ def is_carmichael(n):
 
 # returns a set object of Carmichaels in [x, y], where x and y are non-negative integers and x <= y
 def find_carmichaels_in_range(x, y):
-    carmichaels = set()
-    for i in range(x, y):
-        if (is_carmichael(i)):
-            carmichaels.add(i)
-    return carmichaels
+    return set([i for i in range(x, y) if is_carmichael(i)])
 
 # returns a set of the first n Carmichael numbers beginning its search from 0
 # as the numbers are added to that set they are printed out
@@ -82,12 +80,12 @@ def find_first_n_carmichaels(n):
 
 
 # test code
-numCarmichaels = 5
+numCarmichaels = 34
 print("First " + str(numCarmichaels) + " Carmichael Numbers:")
 carmichaelSet = find_first_n_carmichaels(numCarmichaels)
 carmichaelSet = sorted(carmichaelSet)
-
 print(str(carmichaelSet))
+
 print("\n---Fermat Prime Tests---")
 print('%10s' % "Carmichael" + \
       '%6s' % " Fermat" +\

@@ -6,8 +6,6 @@
 ## 09/15/2016
 ##################################################
 
-# !/usr/bin/python
-
 from sets import Set
 from fermat_primes_py2 import is_fermat_prime
 from math import sqrt
@@ -27,6 +25,8 @@ def divides(p, n):
 
 # returns true if n is prime
 def is_prime(n):
+    if(n%2 == 0):
+        return False
     if(n<2):
         return False
 
@@ -34,7 +34,7 @@ def is_prime(n):
     if(n in knownPrimes):
         return True
     else:
-        for i in range(2, n/2):
+        for i in range(3, n/2, 2):
             if not (n%i):
                 return False
 
@@ -44,8 +44,6 @@ def is_prime(n):
 # returns true if n is a Carmichael number
 def is_carmichael(n):
     if(n==1):
-        return False
-    if(n%2==0):
         return False
     if(is_prime(n)):
         return False
@@ -83,7 +81,7 @@ def find_first_n_carmichaels(n):
 
 
 # test code
-numCarmichaels = 3
+numCarmichaels = 10
 print "First " + str(numCarmichaels) + " Carmichael Numbers:"
 carmichaelSet = find_first_n_carmichaels(numCarmichaels)
 carmichaelSet = sorted(carmichaelSet)
